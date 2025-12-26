@@ -45,6 +45,7 @@ import EpisodeSelector from '@/components/EpisodeSelector';
 import DownloadEpisodeSelector from '@/components/DownloadEpisodeSelector';
 import PageLayout from '@/components/PageLayout';
 import DoubanComments from '@/components/DoubanComments';
+import DoubanRecommendations from '@/components/DoubanRecommendations';
 import DanmakuFilterSettings from '@/components/DanmakuFilterSettings';
 import Toast, { ToastProps } from '@/components/Toast';
 import { useEnableComments } from '@/hooks/useEnableComments';
@@ -433,6 +434,20 @@ function PlayPageClient() {
       }
     }
   }, [searchParams, currentEpisodeIndex]);
+
+  // 监听 URL 参数变化，当切换到不同视频时重新加载页面
+  useEffect(() => {
+    const urlTitle = searchParams.get('title') || '';
+    const urlSource = searchParams.get('source') || '';
+    const urlId = searchParams.get('id') || '';
+
+    // 只在切换到不同视频时重新加载页面（title变化）
+    // 换源（source/id变化）由播放器自己处理，不需要刷新页面
+    if (urlTitle && urlTitle !== videoTitle) {
+      console.log('[PlayPage] Title changed, reloading page');
+      window.location.href = window.location.href;
+    }
+  }, [searchParams, videoTitle]);
 
   const currentSourceRef = useRef(currentSource);
   const currentIdRef = useRef(currentId);
@@ -5196,6 +5211,28 @@ function PlayPageClient() {
             </div>
           </div>
         </div>
+
+        {/* 豆瓣推荐区域 */}
+        {videoDoubanId !== 0 && enableComments && (
+          <div className='mt-6 px-4'>
+            <div className='bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm rounded-xl border border-gray-200/50 dark:border-gray-700/50 overflow-hidden'>
+              {/* 标题 */}
+              <div className='px-6 py-4 border-b border-gray-200 dark:border-gray-700'>
+                <h3 className='text-lg font-semibold text-gray-900 dark:text-white flex items-center gap-2'>
+                  <svg className='w-5 h-5' fill='currentColor' viewBox='0 0 24 24'>
+                    <path d='M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z'/>
+                  </svg>
+                  更多推荐
+                </h3>
+              </div>
+
+              {/* 推荐内容 */}
+              <div className='p-6'>
+                <DoubanRecommendations doubanId={videoDoubanId} />
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* 豆瓣评论区域 */}
         {videoDoubanId !== 0 && enableComments && (

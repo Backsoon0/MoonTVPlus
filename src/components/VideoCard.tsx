@@ -398,7 +398,7 @@ const VideoCard = forwardRef<VideoCardHandle, VideoCardProps>(function VideoCard
         showPlayButton: !isUpcoming, // 即将上映不显示播放按钮
         showHeart: false,
         showCheckCircle: false,
-        showDoubanLink: true,
+        showDoubanLink: false,
         showRating: !!rate,
         showYear: false,
       },

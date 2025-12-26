@@ -6181,11 +6181,11 @@ const SiteConfigComponent = ({
           评论配置
         </h3>
 
-        {/* 开启评论 */}
+        {/* 开启评论与相似推荐 */}
         <div>
           <div className='flex items-center justify-between'>
             <label className='block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2'>
-              开启评论
+              开启评论与相似推荐
             </label>
             <button
               type='button'
@@ -6208,7 +6208,7 @@ const SiteConfigComponent = ({
             </button>
           </div>
           <p className='mt-1 text-xs text-gray-500 dark:text-gray-400'>
-            开启后将显示豆瓣评论。评论为逆向抓取，请自行承担责任。
+            开启后将显示豆瓣评论与相似推荐。评论为逆向抓取，请自行承担责任。
           </p>
         </div>
       </div>
@@ -6253,7 +6253,7 @@ const SiteConfigComponent = ({
               <div className='p-6'>
                 <div className='flex items-center justify-between mb-6'>
                   <h3 className='text-xl font-semibold text-gray-900 dark:text-gray-100'>
-                    开启评论功能
+                    开启评论与相似推荐功能
                   </h3>
                   <button
                     onClick={() => setShowEnableCommentsModal(false)}
