@@ -434,7 +434,7 @@ export default function MusicPage() {
     const timeRegex = /\[(\d{2}):(\d{2})(?:\.(\d{2,3}))?\]/g;
 
     lines.forEach(line => {
-      const matches = [...line.matchAll(timeRegex)];
+      const matches = Array.from(line.matchAll(timeRegex));
       if (matches.length > 0) {
         // 提取歌词文本（去掉所有时间标签）
         const text = line.replace(timeRegex, '').trim();
